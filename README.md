@@ -27,7 +27,7 @@ This script allows you to perform Google searches programmatically and retrieve 
 2. Run the script:
 
     ```bash
-    python google_search.py
+    python main.py
     ```
 
 3. Enter your search query when prompted.
