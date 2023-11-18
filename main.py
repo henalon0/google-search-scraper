@@ -1,7 +1,7 @@
 import requests 
 from bs4 import BeautifulSoup
 
-class Search():
+class Search:
     def __init__(self, headers=None):
         self.url = 'https://www.google.com/search?q='
 
@@ -15,10 +15,10 @@ class Search():
             self.headers = headers
 
     def get_result(self, query:str):
-        respond = requests.get(self.url + query, headers=self.headers)
-        assert respond.status_code == 200
+        r = requests.get(self.url + query, headers=self.headers)
+        assert r.status_code == 200
 
-        soup = BeautifulSoup(respond.text, 'html.parser')
+        soup = BeautifulSoup(r.text, 'html.parser')
 
         for a in soup.find('div', id='search').find_all('a'):
             try:
@@ -31,10 +31,10 @@ class Search():
         return None
     
     def get_multiple_result(self, query:str, k:int):
-        respond = requests.get(self.url + query, headers=self.headers)
-        assert respond.status_code == 200
+        r = requests.get(self.url + query, headers=self.headers)
+        assert r.status_code == 200
 
-        soup = BeautifulSoup(respond.text, 'html.parser')
+        soup = BeautifulSoup(r.text, 'html.parser')
         results = set()
 
         for a in soup.find('div', id='search').find_all('a'):
