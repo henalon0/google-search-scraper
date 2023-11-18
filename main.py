@@ -14,6 +14,7 @@ class Search:
         else:
             self.headers = headers
 
+
     def get_result(self, query:str):
         r = requests.get(self.url + query, headers=self.headers)
         assert r.status_code == 200
@@ -24,12 +25,15 @@ class Search:
             try:
                 href = a['href']
                 assert type(href) == str
-                if href.startswith('http'): return href.strip()
+
+                if href.startswith('http') and 'www.google.com' not in href:
+                    return href.strip()
             except:
                 continue
 
         return None
     
+
     def get_multiple_result(self, query:str, k:int):
         r = requests.get(self.url + query, headers=self.headers)
         assert r.status_code == 200
@@ -41,9 +45,12 @@ class Search:
             try:
                 href = a['href']
                 assert type(href) == str
-                if href.startswith('http'):
-                    if len(results) < k: results.add(href.strip())
-                    else: return list(results)
+
+                if href.startswith('http') and 'www.google.com' not in href:
+                    if len(results) < k:
+                        results.add(href.strip())
+                    else:
+                        return list(results)
             except:
                 continue
             
