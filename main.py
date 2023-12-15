@@ -1,7 +1,7 @@
 import requests 
 from bs4 import BeautifulSoup
 
-class Search:
+class GoogleSearchScraper:
     def __init__(self, headers=None):
         self.url = 'https://www.google.com/search?q='
 
@@ -21,7 +21,7 @@ class Search:
 
         soup = BeautifulSoup(r.text, 'html.parser')
 
-        for a in soup.find('div', id='search').find_all('a'):
+        for a in soup.find('div', id='search').find('div', attrs={'class': 'hlcw0c'}).find_all('a'):
             try:
                 href = a['href']
                 assert type(href) == str
@@ -41,7 +41,7 @@ class Search:
         soup = BeautifulSoup(r.text, 'html.parser')
         results = set()
 
-        for a in soup.find('div', id='search').find_all('a'):
+        for a in soup.find('div', id='search').find('div', attrs={'class': 'hlcw0c'}).find_all('a'):
             try:
                 href = a['href']
                 assert type(href) == str
@@ -61,7 +61,7 @@ class Search:
 
 
 if __name__ == '__main__':
-    search = Search()
+    search = GoogleSearchScraper()
     query = input('Query: ')
 
     search_result = search.get_result(query=query)
