@@ -21,7 +21,7 @@ class GoogleSearchScraper:
 
         soup = BeautifulSoup(r.text, 'html.parser')
 
-        for a in soup.find('div', id='search').find('div', attrs={'class': 'hlcw0c'}).find_all('a'):
+        for a in soup.find('div', id='search').find_all('a'):
             try:
                 href = a['href']
                 assert type(href) == str
@@ -41,7 +41,7 @@ class GoogleSearchScraper:
         soup = BeautifulSoup(r.text, 'html.parser')
         results = set()
 
-        for a in soup.find('div', id='search').find('div', attrs={'class': 'hlcw0c'}).find_all('a'):
+        for a in soup.find('div', id='search').find_all('a'):
             try:
                 href = a['href']
                 assert type(href) == str
